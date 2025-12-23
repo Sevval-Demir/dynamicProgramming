@@ -6,7 +6,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 CSV_PATH = os.path.join(BASE_DIR, "results", "csv", "results.csv")
 
-def write_csv_row(algorithm, vertices, time_sec, cpu_time_sec, memory_kb):
+def write_csv_row(
+    algorithm,
+    vertices,
+    time_sec,
+    cpu_time_sec,
+    memory_before_kb,
+    memory_after_kb,
+    memory_diff_kb,
+    energy_kwh
+):
+
 
     os.makedirs(os.path.dirname(CSV_PATH), exist_ok=True)
 
@@ -22,6 +32,7 @@ def write_csv_row(algorithm, vertices, time_sec, cpu_time_sec, memory_kb):
                 "time_sec",
                 "cpu_time_sec",
                 "memory_kb"
+                "energy_kwh"
             ])
 
         writer.writerow([
@@ -29,5 +40,9 @@ def write_csv_row(algorithm, vertices, time_sec, cpu_time_sec, memory_kb):
             vertices,
             round(time_sec, 6),
             round(cpu_time_sec, 6),
-            round(memory_kb, 2)
+            round(memory_before_kb, 2),
+            round(memory_after_kb, 2),
+            round(memory_diff_kb, 2),
+            energy_kwh
         ])
+

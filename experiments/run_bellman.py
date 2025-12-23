@@ -1,3 +1,8 @@
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import random
 
 # Algoritma
@@ -51,13 +56,26 @@ for label, v in sizes.items():
     energy_before = measure_energy()
 
     # Algoritmanın çalışma süresi ölçülür
-    time_result = measure_time(bellman_ford, v, edges, 0)
+    cc_result = measure_with_codecarbon(
+        measure_time,
+        bellman_ford,
+        v,
+        edges,
+        0
+    )
+
+    time_result = cc_result["result"]
+    energy_kwh = cc_result["energy_kwh"]
 
     # Algoritma çalıştıktan SONRA enerji ölçümü
     energy_after = measure_energy()
 
     cpu_diff = energy_after["cpu_time_sec"] - energy_before["cpu_time_sec"]
-    mem_diff = energy_after["memory_kb"] - energy_before["memory_kb"]
+
+    memory_before_kb = energy_before["memory_kb"]
+    memory_after_kb = energy_after["memory_kb"]
+
+    memory_diff_kb = max(0, memory_after_kb - memory_before_kb)
 
     # Sonuçların ekrana yazdırılması
     print(f"\n--- {label.upper()} GRAPH (Bellman-Ford) ---")
@@ -68,12 +86,18 @@ for label, v in sizes.items():
     print(f"CPU Time (s): {cpu_diff:.6f}")
 
     # Bellek kullanım farkı (KB)
-    print(f"Memory (KB): {mem_diff:.2f}")
+    print(f"Memory Before (KB): {memory_before_kb:.2f}")
+    print(f"Memory After  (KB): {memory_after_kb:.2f}")
+    print(f"Memory Diff   (KB): {memory_diff_kb:.2f}")
 
     write_csv_row(
         algorithm="Bellman-Ford",
         vertices=v,
         time_sec=time_result["time_sec"],
         cpu_time_sec=cpu_diff,
-        memory_kb=mem_diff
+        memory_before_kb=memory_before_kb,
+        memory_after_kb=memory_after_kb,
+        memory_diff_kb=memory_diff_kb,
+        energy_kwh=energy_kwh
     )
+

@@ -14,14 +14,18 @@ def measure_with_codecarbon(func,*args,**kwargs):
         project_name="dynamic_programming_energy",
         measure_power_secs=1,
         log_level="error",
+        save_to_file=False
     )
 
     tracker.start()
     result=func(*args,**kwargs)
     emissions_data=tracker.stop()
 
+    energy_kwh = tracker.stop()
+
     return {
-        "energy_kwh": emissions_data.energy_consumed,
-        "emissions_kg": emissions_data.emissions,
+        "energy_kwh": energy_kwh,
         "result": result
     }
+
+
