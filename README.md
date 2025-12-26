@@ -61,23 +61,23 @@ Proje, deneyleri çalıştırmak ve sonuçları görselleştirmek için **Stream
 
 dynamicProgramming/
 ├─ algorithms/
-│ ├─ bellman_ford.py
-│ └─ floyd_warshall.py
+│  ├─ bellman_ford.py
+│  └─ floyd_warshall.py
 │
 ├─ experiments/
-│ ├─ run_bellman.py
-│ └─ run_floyd.py
+│  ├─ run_bellman.py
+│  └─ run_floyd.py
 │
 ├─ measurements/
-│ ├─ time_tracker.py
-│ ├─ energy_tracker.py
-│ └─ codecarbon_tracker.py
+│  ├─ time_tracker.py
+│  ├─ energy_tracker.py
+│  └─ codecarbon_tracker.py
 │
 ├─ results/
-│ ├─ csv/
-│ │ └─ results.csv
-│ └─ plots/
-│ └─ plot_results.py
+│  ├─ csv/
+│  │  └─ results.csv
+│  └─ plots/
+│     └─ plot_results.py
 │
 ├─ app.py
 └─ README.md
