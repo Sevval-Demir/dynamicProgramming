@@ -8,8 +8,8 @@ import pandas as pd
 # PAGE CONFIG
 # -------------------------------------------------
 st.set_page_config(
-    page_title="Algorithm Analysis – Energy Complexity",
-    page_icon="📊",
+    page_title="Energy-Aware Algorithm Analysis",
+    page_icon="⚡",
     layout="wide"
 )
 
@@ -18,44 +18,102 @@ CSV_PATH = os.path.join(BASE_DIR, "results", "csv", "results.csv")
 PLOTS_DIR = os.path.join(BASE_DIR, "results", "plots")
 
 # -------------------------------------------------
-# DARK THEME (CUSTOM CSS)
+# CUSTOM DARK + COLORFUL THEME
 # -------------------------------------------------
-st.markdown(
-    """
-    <style>
-    .main {
-        background-color: #0f172a;
-        color: #e5e7eb;
-    }
+st.markdown("""
+<style>
 
-    h1, h2, h3, h4 {
-        color: #f9fafb;
-    }
+/* ===== APP BACKGROUND ===== */
+.stApp {
+    background: linear-gradient(
+        135deg,
+        #eef2ff,
+        #f5f3ff,
+        #ecfeff
+    );
+}
 
-    .stButton>button {
-        background-color: #1e40af;
-        color: white;
-        border-radius: 10px;
-        padding: 0.6em 1.2em;
-        border: none;
-        font-size: 16px;
-    }
+/* ===== GENERAL TEXT ===== */
+body {
+    color: #1f2937;
+    font-family: "Segoe UI", sans-serif;
+}
 
-    .stButton>button:hover {
-        background-color: #1d4ed8;
-    }
+/* ===== HEADERS ===== */
+h1 {
+    color: #4338ca;
+    font-weight: 800;
+}
 
-    .stDataFrame {
-        background-color: #020617;
-    }
+h2 {
+    color: #4f46e5;
+    font-weight: 600;
+}
 
-    hr {
-        border: 1px solid #334155;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+h3 {
+    color: #6366f1;
+}
+
+/* ===== CONTENT CARDS ===== */
+section[data-testid="stVerticalBlock"] {
+    background-color: #f8fafc;
+    padding: 28px;
+    border-radius: 22px;
+    margin-bottom: 28px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+
+/* ===== BUTTONS ===== */
+.stButton > button {
+    background-color: #6366f1;
+    color: white;
+    border-radius: 16px;
+    padding: 0.75em 1.6em;
+    border: none;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 8px 22px rgba(99,102,241,0.35);
+}
+
+.stButton > button:hover {
+    background-color: #4f46e5;
+}
+
+/* ===== METRICS ===== */
+[data-testid="metric-container"] {
+    background-color: #eef2ff;
+    border: 1px solid #c7d2fe;
+    padding: 16px;
+    border-radius: 16px;
+}
+
+[data-testid="metric-container"] label {
+    color: #4338ca;
+}
+
+/* ===== DATAFRAME ===== */
+.stDataFrame {
+    background-color: #f8fafc;
+    border-radius: 14px;
+}
+
+/* ===== DIVIDER ===== */
+hr {
+    border: none;
+    height: 1px;
+    background-color: #c7d2fe;
+    margin: 30px 0;
+}
+
+/* ===== IMAGES ===== */
+img {
+    border-radius: 14px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 # -------------------------------------------------
 # HELPERS
@@ -64,25 +122,23 @@ def run_script(script_path):
     full_path = os.path.join(BASE_DIR, script_path)
     subprocess.run([sys.executable, full_path], check=True)
 
-def show_plot(filename, title):
+def show_plot(filename, title, width=520):
     path = os.path.join(PLOTS_DIR, filename)
     st.subheader(title)
     if os.path.exists(path):
-        st.image(path, width="stretch")
+        st.image(path, width=width)
     else:
         st.warning("Plot not found. Please generate plots first.")
 
 # -------------------------------------------------
 # HEADER
 # -------------------------------------------------
-st.title("📊 Algorithm Analysis Dashboard")
+st.title("⚡ Energy-Aware Algorithm Analysis Dashboard")
 
-st.markdown(
-    """
-    **CSE303 / BYM303 – Algorithm Analysis Course Project**  
-    **Energy, Time and Memory Complexity Analysis of Dynamic Programming Algorithms**
-    """
-)
+st.markdown("""
+**CSE303 / BYM303 – Algorithm Analysis Course Project**  
+**Energy, Time and Memory Complexity of Dynamic Programming Algorithms**
+""")
 
 st.divider()
 
@@ -118,11 +174,7 @@ st.header("📄 Experimental Results")
 if os.path.exists(CSV_PATH):
     df = pd.read_csv(CSV_PATH)
 
-    st.dataframe(
-        df,
-        width="stretch",
-        hide_index=True
-    )
+    st.dataframe(df, hide_index=True)
 
     st.divider()
 
@@ -140,7 +192,7 @@ if os.path.exists(CSV_PATH):
         st.metric("Max Time (s)", round(df["time_sec"].max(), 2))
 
     with c3:
-        st.metric("Max Memory Diff (KB)", int(df["memory_diff_kb"].max()))
+        st.metric("Max Memory (KB)", int(df["memory_diff_kb"].max()))
 
     with c4:
         st.metric("Max Energy (kWh)", f"{df['energy_kwh'].max():.2e}")
@@ -151,19 +203,28 @@ else:
 st.divider()
 
 # -------------------------------------------------
-# PLOTS
+# PLOTS (COMPACT GRID)
 # -------------------------------------------------
 st.header("📈 Visual Analysis")
 
-show_plot("time_vs_vertices.png", "Execution Time vs Number of Vertices")
-show_plot("cpu_vs_vertices.png", "CPU Time vs Number of Vertices")
-show_plot("memory_vs_vertices.png", "Net Memory Usage vs Number of Vertices")
-show_plot("energy_vs_vertices.png", "Energy Consumption vs Number of Vertices")
+c1, c2 = st.columns(2)
+
+with c1:
+    show_plot("time_vs_vertices.png", "Execution Time vs Vertices")
+
+with c2:
+    show_plot("cpu_vs_vertices.png", "CPU Time vs Vertices")
+
+c3, c4 = st.columns(2)
+
+with c3:
+    show_plot("memory_vs_vertices.png", "Memory Usage vs Vertices")
+
+with c4:
+    show_plot("energy_vs_vertices.png", "Energy Consumption vs Vertices")
 
 # -------------------------------------------------
 # FOOTER
 # -------------------------------------------------
 st.divider()
-st.caption(
-    "Algorithm Analysis Project – Energy Complexity | Dynamic Programming | 2025"
-)
+st.caption("Algorithm Analysis Project – Energy Complexity | 2025")
