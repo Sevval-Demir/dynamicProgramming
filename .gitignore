@@ -5,9 +5,5 @@ __pycache__/
 # Virtual environment
 .venv/
 
-# Generated results
-results/csv/
-results/plots/
-
 # OS files
 .DS_Store
