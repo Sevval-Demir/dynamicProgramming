@@ -235,10 +235,10 @@ Bu proje açık kaynaklıdır ve katkılara açıktır. Katkıda bulunmak isters
 
 ---
 
-## 📝 Lisans
+## 📝 Rapor
 
-Bu proje eğitim amaçlıdır.
-
+Bu proje sonucunda **Dinamik Programlama Algoritmalarında Zaman ve Enerji Karmaşıklığı Karşılaştırması** başlıklı yazıya aşağıdaki linkten ulaşılabilir.
+![Dinamik Programlama](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/dinamik_programlama.pdf)
 ---
 
 ## 👥 İletişim
@@ -246,7 +246,7 @@ Bu proje eğitim amaçlıdır.
 Sorularınız veya önerileriniz için:
 
 - **GitHub Issues:** [Proje Sayfası](https://github.com/Sevval-Demir/dynamicProgramming.git)
-
+- 
 ---
 
 ## 🌟 Teşekkürler
