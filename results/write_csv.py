@@ -15,8 +15,9 @@ def write_csv_row(
     memory_before_kb,
     memory_after_kb,
     memory_diff_kb,
+    peak_memory_kb,
     energy_impact_score,
-    emissions_kg
+    emissions_kg,
 ):
     os.makedirs(os.path.dirname(CSV_PATH), exist_ok=True)
     file_exists = os.path.isfile(CSV_PATH)
@@ -35,8 +36,9 @@ def write_csv_row(
                 "memory_before_kb",
                 "memory_after_kb",
                 "memory_diff_kb",
+                "peak_memory_kb",
                 "energy_impact_score",
-                "emissions_kg"
+                "emissions_kg",
             ])
 
         writer.writerow([
@@ -49,6 +51,7 @@ def write_csv_row(
             round(memory_before_kb, 2),
             round(memory_after_kb, 2),
             round(memory_diff_kb, 2),
+            round(peak_memory_kb, 2),
             round(energy_impact_score, 6),
-            emissions_kg
+            emissions_kg,
         ])

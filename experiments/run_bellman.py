@@ -16,6 +16,7 @@ from measurements.energy_tracker import measure_energy
 # CSV yazıcı
 from results.write_csv import write_csv_row
 
+from measurements.memory_tracker import measure_peak_memory
 
 def generate_graph(vertices, density=0.3):
     """
@@ -37,23 +38,15 @@ def generate_graph(vertices, density=0.3):
 
     return edges
 
-
-# Deney senaryoları (hocanın istediği gibi)
-sizes = {
-    "small": 200,
-    "medium": 500,
-    "large": 1000
-}
-
 SOURCE_NODE = 0
 
 def run_bellman_experiment(vertices, density, repetition_id):
     edges = generate_graph(vertices, density)
 
-    # 🔹 ZAMAN ve SİSTEM ÖLÇÜMÜ (önce)
+    #  ZAMAN ve SİSTEM ÖLÇÜMÜ
     energy_before = measure_energy()
 
-    # 🔥 SADECE ALGORİTMA CODECARBON İLE ÖLÇÜLÜR
+    #  SADECE ALGORİTMA CODECARBON İLE ÖLÇÜLÜR
     cc_result = measure_with_codecarbon(
         bellman_ford,
         vertices,
@@ -67,6 +60,15 @@ def run_bellman_experiment(vertices, density, repetition_id):
         edges,
         SOURCE_NODE
     )
+
+    mem_result = measure_peak_memory(
+        bellman_ford,
+        vertices,
+        edges,
+        SOURCE_NODE
+    )
+
+    peak_memory_kb = mem_result["peak_memory_kb"]
 
     energy_after = measure_energy()
 
@@ -91,6 +93,8 @@ def run_bellman_experiment(vertices, density, repetition_id):
         memory_before_kb=memory_before_kb,
         memory_after_kb=memory_after_kb,
         memory_diff_kb=memory_diff_kb,
+        peak_memory_kb=peak_memory_kb,
         energy_impact_score=energy_impact_score,
         emissions_kg=cc_result["emissions_kg"]
     )
+

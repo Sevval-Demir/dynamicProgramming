@@ -18,7 +18,7 @@ CSV_PATH = os.path.join(BASE_DIR, "results", "csv", "results.csv")
 PLOTS_DIR = os.path.join(BASE_DIR, "results", "plots")
 
 # -------------------------------------------------
-# CUSTOM THEME (AYNEN KORUNDU)
+# CUSTOM THEME
 # -------------------------------------------------
 st.markdown("""
 <style>
@@ -85,7 +85,7 @@ img {
 st.title("⚡ Energy-Aware Algorithm Analysis Dashboard")
 
 st.markdown("""
-**CSE303 / BYM303 – Algorithm Analysis Course Project**  
+**BYM303 – Algorithm Analysis Project**  
 **Energy, Time and Memory Complexity of Dynamic Programming Algorithms**
 """)
 
@@ -94,7 +94,7 @@ st.divider()
 # -------------------------------------------------
 # PARAMETER INPUT (SINGLE AXIS: n)
 # -------------------------------------------------
-st.subheader("🔧 Experiment Parameters")
+st.subheader(" Experiment Parameters")
 
 c1, c2, c3 = st.columns(3)
 
@@ -126,7 +126,7 @@ with c3:
 
 
 # -------------------------------------------------
-# HELPERS (YENİ EKLENEN)
+# HELPERS
 # -------------------------------------------------
 def generate_plots():
     plot_script = os.path.join(
@@ -142,7 +142,7 @@ from experiments.run_bellman import run_bellman_experiment
 from experiments.run_floyd import run_floyd_experiment
 from experiments.run_knapsack import run_knapsack_experiment
 
-st.subheader("⚙️ Run Experiments")
+st.subheader("Run Experiments")
 
 b1, b2, b3 = st.columns(3)
 
@@ -181,7 +181,7 @@ if os.path.exists(CSV_PATH):
 
     st.divider()
 
-    st.header("📌 Summary Metrics")
+    st.header("Summary Metrics")
     m1, m2, m3 = st.columns(3)
 
     with m1:
@@ -198,7 +198,8 @@ st.divider()
 # -------------------------------------------------
 # VISUAL ANALYSIS
 # -------------------------------------------------
-st.header("📈 Visual Analysis")
+st.header("📊 Visual Analysis")
+
 
 def show_plot(filename, title, description=None, width=520):
     path = os.path.join(PLOTS_DIR, filename)
@@ -216,34 +217,31 @@ def show_plot(filename, title, description=None, width=520):
 col1, col2 = st.columns(2)
 col3, col4 = st.columns(2)
 
-# 1️⃣ Time Complexity
+# 1 Time Complexity
 with col1:
     show_plot(
         "time_vs_vertices.png",
-        "Time Complexity vs Number of Vertices",
+        "⏱ Time Complexity vs Number of Vertices",
         "Execution time T(n) measured experimentally."
     )
-
-# 2️⃣ Energy Complexity (Theoretical)
+# 2 Energy Complexity
 with col2:
     show_plot(
         "energy_complexity_vs_vertices.png",
-        "Energy Complexity E(n) vs Number of Vertices (Theoretical)",
+        "⚡ Energy Complexity E(n) vs Number of Vertices",
         "Energy complexity modeled as E(n) ∝ T(n), assuming constant average power."
     )
-
-# 3️⃣ Experimental Energy (CodeCarbon)
+# 3 Experimental Energy (CodeCarbon)
 with col3:
     show_plot(
         "emissions_vs_vertices.png",
-        "Experimental Energy Consumption vs Number of Vertices",
+        "🌍 Experimental Energy Consumption vs Number of Vertices",
         "CO₂ emissions measured using CodeCarbon as an experimental proxy for energy consumption."
     )
-
-# 4️⃣ Memory Usage
+# 4 Memory Usage
 with col4:
     show_plot(
         "memory_vs_vertices.png",
-        "Memory Usage vs Number of Vertices",
+        "🧠 Memory Usage vs Number of Vertices",
         "Difference in memory usage during algorithm execution."
     )

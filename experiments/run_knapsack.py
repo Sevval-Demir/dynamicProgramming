@@ -9,6 +9,7 @@ from algorithms.knapsack_01 import knapsack_01
 from measurements.time_tracker import measure_time
 from measurements.energy_tracker import measure_energy
 from results.write_csv import write_csv_row
+from measurements.memory_tracker import measure_peak_memory
 
 
 def generate_knapsack_instance(n):
@@ -37,6 +38,15 @@ def run_knapsack_experiment(n_items, repetition_id):
         capacity
     )
 
+    mem_result = measure_peak_memory(
+        knapsack_01,
+        weights,
+        values,
+        capacity
+    )
+
+    peak_memory_kb = mem_result["peak_memory_kb"]
+
     energy_after = measure_energy()
 
     cpu_diff = energy_after["cpu_time_sec"] - energy_before["cpu_time_sec"]
@@ -49,14 +59,15 @@ def run_knapsack_experiment(n_items, repetition_id):
 
     write_csv_row(
         algorithm="Knapsack-01",
-        vertices=n_items,              # ⚠️ aynı kolon kullanılıyor
-        edge_density=0.0,              # ⚠️ grafik problemi olmadığı için 0
+        vertices=n_items,
+        edge_density=0.0,              #  grafik problemi olmadığı için 0
         repetition_id=repetition_id,
         time_sec=time_result["time_sec"],
         cpu_time_sec=cpu_diff,
         memory_before_kb=memory_before_kb,
         memory_after_kb=memory_after_kb,
         memory_diff_kb=memory_diff_kb,
+        peak_memory_kb=peak_memory_kb,
         energy_impact_score=energy_impact_score,
         emissions_kg=cc_result["emissions_kg"]
     )

@@ -9,6 +9,7 @@ from algorithms.floyd_warshall import floyd_warshall
 from measurements.time_tracker import measure_time
 from measurements.energy_tracker import measure_energy
 from results.write_csv import write_csv_row
+from measurements.memory_tracker import measure_peak_memory
 
 
 def generate_graph_matrix(n, density=0.3):
@@ -44,6 +45,13 @@ def run_floyd_experiment(vertices, density, repetition_id):
         graph
     )
 
+    mem_result = measure_peak_memory(
+        floyd_warshall,
+        graph
+    )
+
+    peak_memory_kb = mem_result["peak_memory_kb"]
+
     energy_after = measure_energy()
 
     cpu_diff = energy_after["cpu_time_sec"] - energy_before["cpu_time_sec"]
@@ -64,6 +72,7 @@ def run_floyd_experiment(vertices, density, repetition_id):
         memory_before_kb=memory_before_kb,
         memory_after_kb=memory_after_kb,
         memory_diff_kb=memory_diff_kb,
+        peak_memory_kb=peak_memory_kb,
         energy_impact_score=energy_impact_score,
         emissions_kg=cc_result["emissions_kg"]
     )
