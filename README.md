@@ -184,16 +184,8 @@ Proje çıktıları Streamlit arayüzünde interaktif grafiklere dönüştürül
 
 ### 🗂️ Deneysel Veri Seti (CSV)
 
-Deneyler sonucunda elde edilen ham verilerin bir kesiti aşağıdadır. Bu veriler `CodeCarbon` ve `psutil` kütüphaneleri kullanılarak toplanmıştır.
-
-| Algorithm | Input Size | Time (s) | Memory (MB) | Energy (J) | CO2 Emissions (kg) |
-|-----------|:----------:|:--------:|:-----------:|:----------:|:------------------:|
-| **Bellman-Ford** | 100 | 0.0528 | 0.0469 | 0.0034 | 2.19e-07 |
-| **Bellman-Ford** | 300 | 0.5236 | 0.1445 | 0.0412 | 2.76e-06 |
-| **Floyd-Warshall** | 100 | 0.4852 | 0.2852 | 0.0423 | 2.68e-06 |
-| **Floyd-Warshall** | 300 | 12.8941 | 1.8477 | 1.1542 | 6.83e-05 |
-| **Knapsack** | 100 | 0.0003 | 0.0078 | 0.0012 | 8.54e-09 |
-| **Knapsack** | 300 | 0.0007 | 0.0352 | 0.0013 | 9.06e-09 |
+Deneyler sonucunda elde edilen ham verilerin csv dosyası aşağıdadır. Bu veriler `CodeCarbon` ve `psutil` kütüphaneleri kullanılarak toplanmıştır.
+![Results](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/results/csv/results.csv)
 
 ## 🔬 Teorik Arka Plan
 
