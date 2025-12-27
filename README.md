@@ -170,6 +170,39 @@ Proje, her deney sonucunda otomatik olarak şu verileri üretir:
 
 ---
 
+## 📈 Örnek Sonuçlar ve Görselleştirme
+
+Proje çıktıları Streamlit arayüzünde interaktif grafiklere dönüştürülmektedir. Aşağıda Bellman-Ford, Floyd-Warshall ve Knapsack algoritmalarının karşılaştırmalı analizlerinden örnekler yer almaktadır.
+
+### 📊 Performans Grafikleri
+
+| Zaman Karmaşıklığı (Time) | Bellek Kullanımı (Memory) |
+|:-------------------------:|:-------------------------:|
+| ![Time Complexity](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/results/plots/time_vs_vertices.png) 
+![Energy Complexity](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/results/plots/energy_complexity_vs_vertices.png)
+![Experimental Energy Consumption](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/results/plots/emissions_vs_vertices.png)
+![Memory Analysis](results/plots/memory_analysis.png) |
+
+<div align="center">
+  <p><strong>Enerji Tüketimi (Energy & CO2)</strong></p>
+  <img src="results/plots/energy_analysis.png" alt="Energy Analysis" width="600">
+</div>
+
+---
+
+### 🗂️ Deneysel Veri Seti (CSV)
+
+Deneyler sonucunda elde edilen ham verilerin bir kesiti aşağıdadır. Bu veriler `CodeCarbon` ve `psutil` kütüphaneleri kullanılarak toplanmıştır.
+
+| Algorithm | Input Size | Time (s) | Memory (MB) | Energy (J) | CO2 Emissions (kg) |
+|-----------|:----------:|:--------:|:-----------:|:----------:|:------------------:|
+| **Bellman-Ford** | 100 | 0.0528 | 0.0469 | 0.0034 | 2.19e-07 |
+| **Bellman-Ford** | 300 | 0.5236 | 0.1445 | 0.0412 | 2.76e-06 |
+| **Floyd-Warshall** | 100 | 0.4852 | 0.2852 | 0.0423 | 2.68e-06 |
+| **Floyd-Warshall** | 300 | 12.8941 | 1.8477 | 1.1542 | 6.83e-05 |
+| **Knapsack** | 100 | 0.0003 | 0.0078 | 0.0012 | 8.54e-09 |
+| **Knapsack** | 300 | 0.0007 | 0.0352 | 0.0013 | 9.06e-09 |
+
 ## 🔬 Teorik Arka Plan
 
 ### Enerji Karmaşıklığı Modeli
