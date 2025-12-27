@@ -228,8 +228,7 @@ Bu proje eğitim amaçlıdır.
 
 Sorularınız veya önerileriniz için:
 
-- **GitHub Issues:** [Proje Sayfası](https://github.com/kullaniciadi/proje-adi/issues)
-- **Email:** ornek@email.com
+- **GitHub Issues:** [Proje Sayfası](https://github.com/Sevval-Demir/dynamicProgramming.git)
 
 ---
 
