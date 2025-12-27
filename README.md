@@ -176,19 +176,11 @@ Proje çıktıları Streamlit arayüzünde interaktif grafiklere dönüştürül
 
 ### 📊 Performans Grafikleri
 
-| Zaman Karmaşıklığı (Time) | Bellek Kullanımı (Memory) |
-|:-------------------------:|:-------------------------:|
-| ![Time Complexity](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/results/plots/time_vs_vertices.png) 
+![Time Complexity](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/results/plots/time_vs_vertices.png) 
 ![Energy Complexity](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/results/plots/energy_complexity_vs_vertices.png)
 ![Experimental Energy Consumption](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/results/plots/emissions_vs_vertices.png)
-![Memory Analysis](results/plots/memory_analysis.png) |
+![Memory Analysis](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/results/plots/memory_vs_vertices.png)
 
-<div align="center">
-  <p><strong>Enerji Tüketimi (Energy & CO2)</strong></p>
-  <img src="results/plots/energy_analysis.png" alt="Energy Analysis" width="600">
-</div>
-
----
 
 ### 🗂️ Deneysel Veri Seti (CSV)
 
