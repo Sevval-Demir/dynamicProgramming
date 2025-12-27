@@ -92,46 +92,27 @@ st.markdown("""
 st.divider()
 
 # -------------------------------------------------
-# PARAMETER INPUT (SMALL / MEDIUM / LARGE)
+# PARAMETER INPUT (SINGLE AXIS: n)
 # -------------------------------------------------
 st.subheader("🔧 Experiment Parameters")
-
-level = st.selectbox(
-    "Input Size Level",
-    ["Small", "Medium", "Large"]
-)
-
-LEVEL_CONFIG = {
-    "Small":  {"v_min": 100, "v_max": 300,  "d_min": 0.1, "d_max": 0.3},
-    "Medium": {"v_min": 400, "v_max": 700,  "d_min": 0.3, "d_max": 0.6},
-    "Large":  {"v_min": 800, "v_max": 1200, "d_min": 0.6, "d_max": 0.9},
-}
-
-cfg = LEVEL_CONFIG[level]
-
-st.info(
-    f"Selected **{level}** level → "
-    f"Vertices: {cfg['v_min']}–{cfg['v_max']}, "
-    f"Density: {cfg['d_min']}–{cfg['d_max']}"
-)
 
 c1, c2, c3 = st.columns(3)
 
 with c1:
     vertices = st.slider(
-        "Number of Vertices",
-        min_value=cfg["v_min"],
-        max_value=cfg["v_max"],
-        value=(cfg["v_min"] + cfg["v_max"]) // 2,
+        "Number of Vertices (n)",
+        min_value=50,
+        max_value=1500,
+        value=500,
         step=50
     )
 
 with c2:
     density = st.slider(
         "Edge Density",
-        min_value=cfg["d_min"],
-        max_value=cfg["d_max"],
-        value=round((cfg["d_min"] + cfg["d_max"]) / 2, 2),
+        min_value=0.05,
+        max_value=0.9,
+        value=0.3,
         step=0.05
     )
 
@@ -143,7 +124,6 @@ with c3:
         value=1
     )
 
-st.divider()
 
 # -------------------------------------------------
 # HELPERS (YENİ EKLENEN)
@@ -157,28 +137,36 @@ def generate_plots():
 # -------------------------------------------------
 # RUN EXPERIMENTS
 # -------------------------------------------------
-st.subheader("⚙️ Run Experiments")
 
 from experiments.run_bellman import run_bellman_experiment
 from experiments.run_floyd import run_floyd_experiment
+from experiments.run_knapsack import run_knapsack_experiment
 
-b1, b2 = st.columns(2)
+st.subheader("⚙️ Run Experiments")
+
+b1, b2, b3 = st.columns(3)
 
 with b1:
     if st.button("▶ Run Bellman–Ford"):
         for r in range(1, repetitions + 1):
-            run_bellman_experiment(vertices, density, level, r)
-
+            run_bellman_experiment(vertices, density, r)
         generate_plots()
-        st.success("Bellman–Ford experiment completed and plots updated.")
+        st.success("Bellman–Ford experiment completed.")
 
 with b2:
     if st.button("▶ Run Floyd–Warshall"):
         for r in range(1, repetitions + 1):
-            run_floyd_experiment(vertices, density, level, r)
-
+            run_floyd_experiment(vertices, density, r)
         generate_plots()
-        st.success("Floyd–Warshall experiment completed and plots updated.")
+        st.success("Floyd–Warshall experiment completed.")
+
+with b3:
+    if st.button("▶ Run 0-1 Knapsack"):
+        for r in range(1, repetitions + 1):
+            run_knapsack_experiment(vertices, r)
+        generate_plots()
+        st.success("0-1 Knapsack experiment completed.")
+
 
 st.divider()
 
@@ -201,7 +189,7 @@ if os.path.exists(CSV_PATH):
     with m2:
         st.metric("Max Execution Time (s)", round(df["time_sec"].max(), 2))
     with m3:
-        st.metric("Max Energy Score", round(df["energy_score"].max(), 2))
+        st.metric("Max Energy Score", round(df["energy_impact_score"].max(), 2))
 else:
     st.warning("No results.csv found. Run experiments first.")
 
@@ -212,23 +200,50 @@ st.divider()
 # -------------------------------------------------
 st.header("📈 Visual Analysis")
 
-def show_plot(filename, title, width=520):
+def show_plot(filename, title, description=None, width=520):
     path = os.path.join(PLOTS_DIR, filename)
     st.subheader(title)
+    if description:
+        st.caption(description)
     if os.path.exists(path):
         st.image(path, width=width)
     else:
-        st.warning("Plot not found.")
+        st.warning("Plot not found. Run experiments first.")
 
-c1, c2 = st.columns(2)
+# -------------------------------------------------
+# 2 × 2 GRID LAYOUT
+# -------------------------------------------------
+col1, col2 = st.columns(2)
+col3, col4 = st.columns(2)
 
-with c1:
-    show_plot("time_vs_vertices.png", "Execution Time vs Number of Vertices")
+# 1️⃣ Time Complexity
+with col1:
+    show_plot(
+        "time_vs_vertices.png",
+        "Time Complexity vs Number of Vertices",
+        "Execution time T(n) measured experimentally."
+    )
 
-with c2:
-    show_plot("memory_vs_vertices.png", "Memory Usage vs Number of Vertices")
+# 2️⃣ Energy Complexity (Theoretical)
+with col2:
+    show_plot(
+        "energy_complexity_vs_vertices.png",
+        "Energy Complexity E(n) vs Number of Vertices (Theoretical)",
+        "Energy complexity modeled as E(n) ∝ T(n), assuming constant average power."
+    )
 
-show_plot(
-    "energy_score_vs_vertices.png",
-    "Energy Score (Time × Memory) vs Number of Vertices"
-)
+# 3️⃣ Experimental Energy (CodeCarbon)
+with col3:
+    show_plot(
+        "emissions_vs_vertices.png",
+        "Experimental Energy Consumption vs Number of Vertices",
+        "CO₂ emissions measured using CodeCarbon as an experimental proxy for energy consumption."
+    )
+
+# 4️⃣ Memory Usage
+with col4:
+    show_plot(
+        "memory_vs_vertices.png",
+        "Memory Usage vs Number of Vertices",
+        "Difference in memory usage during algorithm execution."
+    )

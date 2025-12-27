@@ -1,10 +1,11 @@
 from codecarbon import EmissionsTracker
-from codecarbon.output_methods.metrics.metric_docs import emissions_doc
-
-
-from codecarbon import EmissionsTracker
 
 def measure_with_codecarbon(func, *args, **kwargs):
+    """
+    Verilen fonksiyonun çalışması sırasında
+    CO2 emisyonunu ölçer (kg cinsinden).
+    """
+
     tracker = EmissionsTracker(
         project_name="dynamic_programming_energy",
         measure_power_secs=1,
@@ -14,11 +15,9 @@ def measure_with_codecarbon(func, *args, **kwargs):
 
     tracker.start()
     result = func(*args, **kwargs)
-    emissions_kg = tracker.stop()   # SADECE BİR KEZ
+    emissions_kg = tracker.stop()
 
     return {
         "emissions_kg": emissions_kg,
         "result": result
     }
-
-

@@ -4,9 +4,9 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CSV_PATH = os.path.join(BASE_DIR, "results", "csv", "results.csv")
 
+
 def write_csv_row(
     algorithm,
-    input_level,
     vertices,
     edge_density,
     repetition_id,
@@ -15,9 +15,9 @@ def write_csv_row(
     memory_before_kb,
     memory_after_kb,
     memory_diff_kb,
-    energy_score
+    energy_impact_score,
+    emissions_kg
 ):
-
     os.makedirs(os.path.dirname(CSV_PATH), exist_ok=True)
     file_exists = os.path.isfile(CSV_PATH)
 
@@ -27,7 +27,6 @@ def write_csv_row(
         if not file_exists:
             writer.writerow([
                 "algorithm",
-                "input_level",
                 "vertices",
                 "edge_density",
                 "repetition_id",
@@ -36,12 +35,12 @@ def write_csv_row(
                 "memory_before_kb",
                 "memory_after_kb",
                 "memory_diff_kb",
-                "energy_score"
+                "energy_impact_score",
+                "emissions_kg"
             ])
 
         writer.writerow([
             algorithm,
-            input_level,
             vertices,
             edge_density,
             repetition_id,
@@ -50,6 +49,6 @@ def write_csv_row(
             round(memory_before_kb, 2),
             round(memory_after_kb, 2),
             round(memory_diff_kb, 2),
-            round(energy_score, 6)
+            round(energy_impact_score, 6),
+            emissions_kg
         ])
-
