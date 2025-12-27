@@ -23,7 +23,7 @@ Bu çalışma, algoritmaların performansını yalnızca hız (zaman) açısınd
 |-----------|-----|----------|
 | **Bellman–Ford** | Graf Tabanlı | Tek kaynaklı en kısa yol algoritması. Negatif ağırlıklı kenarları destekler. |
 | **Floyd–Warshall** | Graf Tabanlı | Tüm düğüm çiftleri için en kısa yolları hesaplar. |
-| **0-1 Knapsack** | Tablo Tabanlı | **(Bonus)** Bellek erişimi yoğun, klasik dinamik programlama problemi. |
+| **0-1 Knapsack** | Tablo Tabanlı |  Bellek erişimi yoğun, klasik dinamik programlama problemi. |
 
 ---
 
@@ -147,7 +147,7 @@ Tarayıcınızda otomatik olarak `http://localhost:8501` adresi açılacaktır.
 
 ## 📊 Kullanım
 
-1. **Algoritma Seçimi:** Yan menüden analiz etmek istediğiniz algoritmayı seçin
+1. **Algoritma Seçimi:** Menüden analiz etmek istediğiniz algoritmayı seçin
 2. **Girdi Boyutu:** Deney için girdi boyutunu belirleyin (örn: düğüm sayısı, kapasite)
 3. **Deneyi Çalıştır:** "Run Experiment" butonuna tıklayın
 4. **Sonuçları İnceleyin:** 
@@ -164,9 +164,9 @@ Proje, her deney sonucunda otomatik olarak şu verileri üretir:
 - **CSV Formatında Ham Veri** (`results/csv/results.csv`)
 - **Görselleştirme Grafikleri** (`results/plots/`)
   - Zaman karmaşıklığı grafikleri
+  - Enerji karmaşıklığı grafikleri
   - Bellek kullanım grafikleri
   - Enerji tüketimi karşılaştırmaları
-  - CO₂ emisyon analizleri
 
 ---
 
@@ -184,8 +184,11 @@ Proje çıktıları Streamlit arayüzünde interaktif grafiklere dönüştürül
 
 ### 🗂️ Deneysel Veri Seti (CSV)
 
-Deneyler sonucunda elde edilen ham verilerin csv dosyası aşağıdadır. Bu veriler `CodeCarbon` ve `psutil` kütüphaneleri kullanılarak toplanmıştır.
-![Results](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/results/csv/results.csv)
+Deneyler sonucunda elde edilen ham veriler aşağıda verilmiştir. Veri setinin tamamına ulaşmak için linke tıklayabilirsiniz.|
+
+> 🔗 **Verinin Tamamını İncele:** [results.csv Dosyasını Görüntüle](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/results/csv/results.csv)
+
+---
 
 ## 🔬 Teorik Arka Plan
 
@@ -223,23 +226,12 @@ Bu model, algoritmanın teorik analizini enerji boyutuna genişletir.
 
 ---
 
-## 🤝 Katkıda Bulunma
-
-Bu proje açık kaynaklıdır ve katkılara açıktır. Katkıda bulunmak isterseniz:
-
-1. Projeyi fork edin
-2. Yeni bir branch oluşturun (`git checkout -b feature/yeniOzellik`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Yeni özellik eklendi'`)
-4. Branch'inizi push edin (`git push origin feature/yeniOzellik`)
-5. Pull Request oluşturun
-
----
 
 ## 📝 Rapor
 
-Bu proje sonucunda **Dinamik Programlama Algoritmalarında Zaman ve Enerji Karmaşıklığı Karşılaştırması** başlıklı yazıya aşağıdaki linkten ulaşılabilir.
-![Dinamik Programlama](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/dinamik_programlama.pdf)
----
+Bu proje sonucunda hazırlanan **"Dinamik Programlama Algoritmalarında Zaman ve Enerji Karmaşıklığı Karşılaştırması"** başlıklı detaylı akademik rapora aşağıdaki bağlantıdan ulaşabilirsiniz.
+
+[📄 **Proje Raporunu Oku (PDF)**](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/dinamik_programlama.pdf)
 
 ## 👥 İletişim
 
