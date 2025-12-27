@@ -1,173 +1,375 @@
 # ⚡ Enerji Duyarlı Algoritma Analizi
 
-Bu proje, **dinamik programlama algoritmalarını** zaman, bellek ve **enerji karmaşıklığı** bakış açılarıyla incelemeyi amaçlamaktadır.  
-Klasik algoritma analizine ek olarak, **enerji karmaşıklığı** kavramı hem **teorik** hem de **deneysel** olarak ele alınmıştır.
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-red)
+![CodeCarbon](https://img.shields.io/badge/CodeCarbon-Sustainability-green)
+![Status](https://img.shields.io/badge/Status-Educational-orange)
 
-Proje kapsamında incelenen algoritmalar:
-- **Bellman–Ford Algoritması** (graf tabanlı, tek kaynaklı en kısa yol)
-- **Floyd–Warshall Algoritması** (graf tabanlı, tüm çiftler için en kısa yol)
-- **0-1 Knapsack Algoritması** (tablo tabanlı dinamik programlama – bonus)
+Bu proje, **Dinamik Programlama** algoritmalarını zaman, bellek ve özellikle **enerji karmaşıklığı** perspektifinden inceleyen akademik bir analiz çalışmasıdır.
 
-Deneylerin çalıştırılması ve sonuçların incelenmesi için **Streamlit tabanlı etkileşimli bir arayüz** sunulmaktadır.
+Klasik algoritma analizine (Big-O) ek olarak, **enerji karmaşıklığı** kavramı hem **teorik modelleme** hem de **deneysel ölçümler** (CodeCarbon) ile ele alınmıştır. Tüm süreç, **Streamlit** tabanlı etkileşimli bir arayüz üzerinden görselleştirilmektedir.
 
 ---
 
 ## 🎯 Projenin Amacı
 
-- Algoritmaların **zaman karmaşıklığını (T(n))** deneysel olarak incelemek  
-- Enerji karmaşıklığını, ders kapsamında verilen tanıma uygun biçimde **teorik olarak modellemek**  
-- **CodeCarbon** kullanarak algoritmaların deneysel enerji tüketimini gözlemlemek  
-- Farklı girdi boyutlarında algoritmaları **karşılaştırmalı olarak analiz etmek**  
-- Grafik tabanlı ve tablo tabanlı dinamik programlama yaklaşımlarının **enerji davranışlarını karşılaştırmak**
+Bu çalışma, algoritmaların performansını sadece hız (zaman) açısından değil, çevresel etki (enerji) açısından da değerlendirmeyi hedefler:
+
+1.  **Teorik Modelleme:** Enerji karmaşıklığını, zaman karmaşıklığı ($T(n)$) ile ilişkilendirerek teorik olarak modellemek ($E(n) \propto T(n)$).
+2.  **Deneysel Gözlem:** **CodeCarbon** kullanarak algoritmaların gerçek donanım üzerindeki karbon ayak izini ve güç tüketimini ölçmek.
+3.  **Karşılaştırmalı Analiz:** Farklı girdi boyutlarında (n) algoritmaların davranışlarını kıyaslamak.
+4.  **Yaklaşım Farkı:** Grafik tabanlı (Bellman-Ford, Floyd-Warshall) ve tablo tabanlı (Knapsack) dinamik programlama yaklaşımlarının enerji tüketim farklarını ortaya koymak.
+
+---
+
+## 🧬 İncelenen Algoritmalar
+
+| Algoritma | Tür | Açıklama |
+|-----------|-----|----------|
+| **Bellman–Ford** | Graf Tabanlı | Tek kaynaklı en kısa yol (Single-Source Shortest Path). Negatif ağırlıklı kenarları yönetebilir. |
+| **Floyd–Warshall** | Graf Tabanlı | Tüm çiftler için en kısa yol (All-Pairs Shortest Path). |
+| **0-1 Knapsack** | Tablo Tabanlı | **(Bonus)** Bellek erişim yoğunluğu yüksek, klasik dinamik programlama örneği. |
 
 ---
 
 ## 🔍 Ölçülen Metrikler
 
-Bu projede aşağıdaki metrikler ölçülmüş ve analiz edilmiştir:
+Projede hem teorik hem de donanım tabanlı metrikler toplanmıştır:
 
-- **Çalışma Süresi (T(n))**
-- **CPU Çalışma Süresi**
-- **Bellek Kullanımı (KB)**
-- **Enerji Karmaşıklığı (Teorik)**  
-  `E(n) ∝ T(n)`  
-  (ortalama güç tüketimi sabit kabul edilmiştir)
-- **Deneysel Enerji Tüketimi**  
-  → CodeCarbon ile ölçülen **CO₂ emisyonu (kg)**
-- **Energy Impact Score (ikincil metrik)**  
-  `time × memory`  
-  (enerjiye duyarlı karşılaştırmayı desteklemek amacıyla)
+### 1. Performans Metrikleri
+* **Çalışma Süresi ($T(n)$):** Algoritmanın milisaniye cinsinden tamamlanma süresi.
+* **CPU Süresi:** İşlemcinin aktif olarak kullanıldığı süre.
+* **Bellek Kullanımı:** Anlık RAM tüketimi (KB).
 
-> ⚠️ Teorik enerji karmaşıklığı ile CodeCarbon’dan elde edilen deneysel enerji ölçümleri **bilinçli olarak ayrı tutulmuştur**.
+### 2. Enerji Metrikleri
+* **Teorik Enerji Karmaşıklığı:** Ortalama güç tüketimi sabit kabul edilerek, zaman karmaşıklığı üzerinden modellenen değer.
+* **Deneysel Enerji Tüketimi (CodeCarbon):** Donanım sensörleri kullanılarak ölçülen $CO_2$ emisyonu (kg) ve güç tüketimi (kWh).
+* **Energy Impact Score:** `Time × Memory` formülü ile türetilen, enerjiye duyarlı karşılaştırmayı destekleyen ikincil metrik.
+
+> **⚠️ Önemli Not:** Teorik enerji karmaşıklığı (matematiksel model) ile CodeCarbon’dan elde edilen deneysel ölçümler **bilinçli olarak ayrı tutulmuştur**. Biri algoritmanın yapısını, diğeri donanım üzerindeki gerçek maliyetini temsil eder.
 
 ---
 
-## 🧠 Akademik Yaklaşım
+## 🧠 Akademik Yaklaşım ve Metodoloji
 
-- Enerji karmaşıklığı, ders kapsamında verilen tanıma uygun olarak **zaman karmaşıklığı üzerinden modellenmiştir**
-- **CodeCarbon**, bu teorik modelin gerçek sistemlerdeki karşılığını **karşılaştırmalı olarak gözlemlemek** amacıyla kullanılmıştır
-- Grafik üretimi, dosya yazma ve kullanıcı arayüzü işlemleri **enerji ölçümüne dahil edilmemiştir**
-- Algoritmalar **izole biçimde** ölçülmüştür
-- 0-1 Knapsack algoritması, **bellek erişim yoğunluğu yüksek** tablo tabanlı bir dinamik programlama örneği olarak bonus kapsamında projeye dahil edilmiştir
+* **İzolasyon:** Algoritmalar, arayüz ve dosya işlemlerinden (I/O) yalıtılarak saf işlem süreleri ölçülmüştür.
+* **Modelleme:** Enerji karmaşıklığı, ders müfredatına ve literatüre uygun olarak zaman karmaşıklığına orantılı modellenmiştir.
+* **Veri Güvenilirliği:** Sonuçlar tek seferlik ölçümler yerine, belirlenen **tekrar sayısı (iterations)** üzerinden ortalama alınarak hesaplanmıştır.
+* **Bonus Kapsam:** 0-1 Knapsack algoritması, graf algoritmalarından farklı bir bellek erişim modeline (tablo/matris) sahip olduğu için karşılaştırma grubuna eklenmiştir.
 
 ---
 
 ## 🛠 Kullanılan Teknolojiler
 
-- Python
-- Streamlit
-- psutil
-- CodeCarbon
-- Pandas
-- Matplotlib
+* **Dil:** Python 3.x
+* **Arayüz:** Streamlit
+* **Enerji Takibi:** CodeCarbon
+* **Sistem İzleme:** psutil
+* **Veri Analizi & Görselleştirme:** Pandas, Matplotlib
 
 ---
 
 ## 📂 Proje Yapısı
 
+```text
 dynamicProgramming/
-├─ algorithms/
-│ ├─ bellman_ford.py
-│ ├─ floyd_warshall.py
-│ └─ knapsack_01.py
-│
-├─ experiments/
-│ ├─ run_bellman.py
-│ ├─ run_floyd.py
-│ └─ run_knapsack.py
-│
-├─ measurements/
-│ ├─ time_tracker.py
-│ ├─ energy_tracker.py
-│ └─ codecarbon_tracker.py
-│
-├─ results/
-│ ├─ csv/
-│ │ └─ results.csv
-│ └─ plots/
-│ └─ plot_results.py
-│
-├─ app.py
-└─ README.md
+├── algorithms/             # Algoritmaların saf implementasyonları
+│   ├── bellman_ford.py
+│   ├── floyd_warshall.py
+│   └── knapsack_01.py
+├── experiments/            # Deney koşucuları (Runner scripts)
+│   ├── run_bellman.py
+│   ├── run_floyd.py
+│   └── run_knapsack.py
+├── measurements/           # Ölçüm araçları (Decorator/Wrapper)
+│   ├── time_tracker.py
+│   ├── energy_tracker.py
+│   └── codecarbon_tracker.py
+├── results/                # Çıktı dizini
+│   ├── csv/                # Ham veri (results.csv)
+│   └── plots/              # Otomatik üretilen grafikler
+├── app.py                  # Streamlit ana uygulaması
+└── requirements.txt        # Bağımlılıklar
+
+git clone [https://github.com/kullaniciadi/proje-adi.git](https://github.com/kullaniciadi/proje-adi.git)
+cd dynamicProgramming
+
+2️⃣ Sanal Ortam Oluşturun (Önerilen)
+Bash
+
+python -m venv venv
+# Windows için:
+venv\Scripts\activate
+# Mac/Linux için:
+source venv/bin/activate
+
+Harika bir taslak hazırlamışsın. Projenin akademik ve teknik derinliğini ön plana çıkaracak, GitHub'da paylaştığında profesyonel bir portföy projesi gibi görünecek şekilde düzenledim.
+
+Aşağıda, Markdown formatında kopyalayıp doğrudan kullanabileceğin düzenlenmiş versiyonu ve altında neleri neden değiştirdiğime dair kısa notları bulabilirsin.
+
+📋 Kopyalanabilir README.md Dosyası
+Markdown
+
+# ⚡ Enerji Duyarlı Algoritma Analizi
+
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-red)
+![CodeCarbon](https://img.shields.io/badge/CodeCarbon-Sustainability-green)
+![Status](https://img.shields.io/badge/Status-Educational-orange)
+
+Bu proje, **Dinamik Programlama** algoritmalarını zaman, bellek ve özellikle **enerji karmaşıklığı** perspektifinden inceleyen akademik bir analiz çalışmasıdır.
+
+Klasik algoritma analizine (Big-O) ek olarak, **enerji karmaşıklığı** kavramı hem **teorik modelleme** hem de **deneysel ölçümler** (CodeCarbon) ile ele alınmıştır. Tüm süreç, **Streamlit** tabanlı etkileşimli bir arayüz üzerinden görselleştirilmektedir.
 
 ---
 
-## 🚀 Kurulum ve Çalıştırma
+## 🎯 Projenin Amacı
 
-### 1️⃣ Gerekli paketleri yükleyin
+Bu çalışma, algoritmaların performansını sadece hız (zaman) açısından değil, çevresel etki (enerji) açısından da değerlendirmeyi hedefler:
+
+1.  **Teorik Modelleme:** Enerji karmaşıklığını, zaman karmaşıklığı ($T(n)$) ile ilişkilendirerek teorik olarak modellemek ($E(n) \propto T(n)$).
+2.  **Deneysel Gözlem:** **CodeCarbon** kullanarak algoritmaların gerçek donanım üzerindeki karbon ayak izini ve güç tüketimini ölçmek.
+3.  **Karşılaştırmalı Analiz:** Farklı girdi boyutlarında (n) algoritmaların davranışlarını kıyaslamak.
+4.  **Yaklaşım Farkı:** Grafik tabanlı (Bellman-Ford, Floyd-Warshall) ve tablo tabanlı (Knapsack) dinamik programlama yaklaşımlarının enerji tüketim farklarını ortaya koymak.
+
+---
+
+## 🧬 İncelenen Algoritmalar
+
+| Algoritma | Tür | Açıklama |
+|-----------|-----|----------|
+| **Bellman–Ford** | Graf Tabanlı | Tek kaynaklı en kısa yol (Single-Source Shortest Path). Negatif ağırlıklı kenarları yönetebilir. |
+| **Floyd–Warshall** | Graf Tabanlı | Tüm çiftler için en kısa yol (All-Pairs Shortest Path). |
+| **0-1 Knapsack** | Tablo Tabanlı | **(Bonus)** Bellek erişim yoğunluğu yüksek, klasik dinamik programlama örneği. |
+
+---
+
+## 🔍 Ölçülen Metrikler
+
+Projede hem teorik hem de donanım tabanlı metrikler toplanmıştır:
+
+### 1. Performans Metrikleri
+* **Çalışma Süresi ($T(n)$):** Algoritmanın milisaniye cinsinden tamamlanma süresi.
+* **CPU Süresi:** İşlemcinin aktif olarak kullanıldığı süre.
+* **Bellek Kullanımı:** Anlık RAM tüketimi (KB).
+
+### 2. Enerji Metrikleri
+* **Teorik Enerji Karmaşıklığı:** Ortalama güç tüketimi sabit kabul edilerek, zaman karmaşıklığı üzerinden modellenen değer.
+* **Deneysel Enerji Tüketimi (CodeCarbon):** Donanım sensörleri kullanılarak ölçülen $CO_2$ emisyonu (kg) ve güç tüketimi (kWh).
+* **Energy Impact Score:** `Time × Memory` formülü ile türetilen, enerjiye duyarlı karşılaştırmayı destekleyen ikincil metrik.
+
+> **⚠️ Önemli Not:** Teorik enerji karmaşıklığı (matematiksel model) ile CodeCarbon’dan elde edilen deneysel ölçümler **bilinçli olarak ayrı tutulmuştur**. Biri algoritmanın yapısını, diğeri donanım üzerindeki gerçek maliyetini temsil eder.
+
+---
+
+## 🧠 Akademik Yaklaşım ve Metodoloji
+
+* **İzolasyon:** Algoritmalar, arayüz ve dosya işlemlerinden (I/O) yalıtılarak saf işlem süreleri ölçülmüştür.
+* **Modelleme:** Enerji karmaşıklığı, ders müfredatına ve literatüre uygun olarak zaman karmaşıklığına orantılı modellenmiştir.
+* **Veri Güvenilirliği:** Sonuçlar tek seferlik ölçümler yerine, belirlenen **tekrar sayısı (iterations)** üzerinden ortalama alınarak hesaplanmıştır.
+* **Bonus Kapsam:** 0-1 Knapsack algoritması, graf algoritmalarından farklı bir bellek erişim modeline (tablo/matris) sahip olduğu için karşılaştırma grubuna eklenmiştir.
+
+---
+
+## 🛠 Kullanılan Teknolojiler
+
+* **Dil:** Python 3.x
+* **Arayüz:** Streamlit
+* **Enerji Takibi:** CodeCarbon
+* **Sistem İzleme:** psutil
+* **Veri Analizi & Görselleştirme:** Pandas, Matplotlib
+
+---
+
+## 📂 Proje Yapısı
+
+```text
+dynamicProgramming/
+├── algorithms/             # Algoritmaların saf implementasyonları
+│   ├── bellman_ford.py
+│   ├── floyd_warshall.py
+│   └── knapsack_01.py
+├── experiments/            # Deney koşucuları (Runner scripts)
+│   ├── run_bellman.py
+│   ├── run_floyd.py
+│   └── run_knapsack.py
+├── measurements/           # Ölçüm araçları (Decorator/Wrapper)
+│   ├── time_tracker.py
+│   ├── energy_tracker.py
+│   └── codecarbon_tracker.py
+├── results/                # Çıktı dizini
+│   ├── csv/                # Ham veri (results.csv)
+│   └── plots/              # Otomatik üretilen grafikler
+├── app.py                  # Streamlit ana uygulaması
+└── requirements.txt        # Bağımlılıklar
+🚀 Kurulum ve Çalıştırma
+1️⃣ Projeyi İndirin
+Projeyi bilgisayarınıza klonlayın veya indirin:
+
+Bash
+
+git clone [https://github.com/kullaniciadi/proje-adi.git](https://github.com/kullaniciadi/proje-adi.git)
+cd dynamicProgramming
+2️⃣ Sanal Ortam Oluşturun (Önerilen)
+Bash
+
+python -m venv venv
+# Windows için:
+venv\Scripts\activate
+# Mac/Linux için:
+source venv/bin/activate
+3️⃣ Gerekli Paketleri Yükleyin
+Bash
 
 pip install -r requirements.txt
 
+Harika bir taslak hazırlamışsın. Projenin akademik ve teknik derinliğini ön plana çıkaracak, GitHub'da paylaştığında profesyonel bir portföy projesi gibi görünecek şekilde düzenledim.
 
-### 2️⃣ Streamlit arayüzünü başlatın
+Aşağıda, Markdown formatında kopyalayıp doğrudan kullanabileceğin düzenlenmiş versiyonu ve altında neleri neden değiştirdiğime dair kısa notları bulabilirsin.
+
+📋 Kopyalanabilir README.md Dosyası
+Markdown
+
+# ⚡ Enerji Duyarlı Algoritma Analizi
+
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-App-red)
+![CodeCarbon](https://img.shields.io/badge/CodeCarbon-Sustainability-green)
+![Status](https://img.shields.io/badge/Status-Educational-orange)
+
+Bu proje, **Dinamik Programlama** algoritmalarını zaman, bellek ve özellikle **enerji karmaşıklığı** perspektifinden inceleyen akademik bir analiz çalışmasıdır.
+
+Klasik algoritma analizine (Big-O) ek olarak, **enerji karmaşıklığı** kavramı hem **teorik modelleme** hem de **deneysel ölçümler** (CodeCarbon) ile ele alınmıştır. Tüm süreç, **Streamlit** tabanlı etkileşimli bir arayüz üzerinden görselleştirilmektedir.
+
+---
+
+## 🎯 Projenin Amacı
+
+Bu çalışma, algoritmaların performansını sadece hız (zaman) açısından değil, çevresel etki (enerji) açısından da değerlendirmeyi hedefler:
+
+1.  **Teorik Modelleme:** Enerji karmaşıklığını, zaman karmaşıklığı ($T(n)$) ile ilişkilendirerek teorik olarak modellemek ($E(n) \propto T(n)$).
+2.  **Deneysel Gözlem:** **CodeCarbon** kullanarak algoritmaların gerçek donanım üzerindeki karbon ayak izini ve güç tüketimini ölçmek.
+3.  **Karşılaştırmalı Analiz:** Farklı girdi boyutlarında (n) algoritmaların davranışlarını kıyaslamak.
+4.  **Yaklaşım Farkı:** Grafik tabanlı (Bellman-Ford, Floyd-Warshall) ve tablo tabanlı (Knapsack) dinamik programlama yaklaşımlarının enerji tüketim farklarını ortaya koymak.
+
+---
+
+## 🧬 İncelenen Algoritmalar
+
+| Algoritma | Tür | Açıklama |
+|-----------|-----|----------|
+| **Bellman–Ford** | Graf Tabanlı | Tek kaynaklı en kısa yol (Single-Source Shortest Path). Negatif ağırlıklı kenarları yönetebilir. |
+| **Floyd–Warshall** | Graf Tabanlı | Tüm çiftler için en kısa yol (All-Pairs Shortest Path). |
+| **0-1 Knapsack** | Tablo Tabanlı | **(Bonus)** Bellek erişim yoğunluğu yüksek, klasik dinamik programlama örneği. |
+
+---
+
+## 🔍 Ölçülen Metrikler
+
+Projede hem teorik hem de donanım tabanlı metrikler toplanmıştır:
+
+### 1. Performans Metrikleri
+* **Çalışma Süresi ($T(n)$):** Algoritmanın milisaniye cinsinden tamamlanma süresi.
+* **CPU Süresi:** İşlemcinin aktif olarak kullanıldığı süre.
+* **Bellek Kullanımı:** Anlık RAM tüketimi (KB).
+
+### 2. Enerji Metrikleri
+* **Teorik Enerji Karmaşıklığı:** Ortalama güç tüketimi sabit kabul edilerek, zaman karmaşıklığı üzerinden modellenen değer.
+* **Deneysel Enerji Tüketimi (CodeCarbon):** Donanım sensörleri kullanılarak ölçülen $CO_2$ emisyonu (kg) ve güç tüketimi (kWh).
+* **Energy Impact Score:** `Time × Memory` formülü ile türetilen, enerjiye duyarlı karşılaştırmayı destekleyen ikincil metrik.
+
+> **⚠️ Önemli Not:** Teorik enerji karmaşıklığı (matematiksel model) ile CodeCarbon’dan elde edilen deneysel ölçümler **bilinçli olarak ayrı tutulmuştur**. Biri algoritmanın yapısını, diğeri donanım üzerindeki gerçek maliyetini temsil eder.
+
+---
+
+## 🧠 Akademik Yaklaşım ve Metodoloji
+
+* **İzolasyon:** Algoritmalar, arayüz ve dosya işlemlerinden (I/O) yalıtılarak saf işlem süreleri ölçülmüştür.
+* **Modelleme:** Enerji karmaşıklığı, ders müfredatına ve literatüre uygun olarak zaman karmaşıklığına orantılı modellenmiştir.
+* **Veri Güvenilirliği:** Sonuçlar tek seferlik ölçümler yerine, belirlenen **tekrar sayısı (iterations)** üzerinden ortalama alınarak hesaplanmıştır.
+* **Bonus Kapsam:** 0-1 Knapsack algoritması, graf algoritmalarından farklı bir bellek erişim modeline (tablo/matris) sahip olduğu için karşılaştırma grubuna eklenmiştir.
+
+---
+
+## 🛠 Kullanılan Teknolojiler
+
+* **Dil:** Python 3.x
+* **Arayüz:** Streamlit
+* **Enerji Takibi:** CodeCarbon
+* **Sistem İzleme:** psutil
+* **Veri Analizi & Görselleştirme:** Pandas, Matplotlib
+
+---
+
+## 📂 Proje Yapısı
+
+```text
+dynamicProgramming/
+├── algorithms/             # Algoritmaların saf implementasyonları
+│   ├── bellman_ford.py
+│   ├── floyd_warshall.py
+│   └── knapsack_01.py
+├── experiments/            # Deney koşucuları (Runner scripts)
+│   ├── run_bellman.py
+│   ├── run_floyd.py
+│   └── run_knapsack.py
+├── measurements/           # Ölçüm araçları (Decorator/Wrapper)
+│   ├── time_tracker.py
+│   ├── energy_tracker.py
+│   └── codecarbon_tracker.py
+├── results/                # Çıktı dizini
+│   ├── csv/                # Ham veri (results.csv)
+│   └── plots/              # Otomatik üretilen grafikler
+├── app.py                  # Streamlit ana uygulaması
+└── requirements.txt        # Bağımlılıklar
+🚀 Kurulum ve Çalıştırma
+1️⃣ Projeyi İndirin
+Projeyi bilgisayarınıza klonlayın veya indirin:
+
+Bash
+
+git clone [https://github.com/kullaniciadi/proje-adi.git](https://github.com/kullaniciadi/proje-adi.git)
+cd dynamicProgramming
+2️⃣ Sanal Ortam Oluşturun (Önerilen)
+Bash
+
+python -m venv venv
+# Windows için:
+venv\Scripts\activate
+# Mac/Linux için:
+source venv/bin/activate
+3️⃣ Gerekli Paketleri Yükleyin
+Bash
+
+pip install -r requirements.txt
+4️⃣ Uygulamayı Başlatın
+Streamlit arayüzünü ayağa kaldırmak için:
+
+Bash
 
 streamlit run app.py
 
-
----
-
 🖥 Arayüz Kullanımı
+Uygulama açıldığında sol panelden deney parametrelerini belirleyebilirsiniz:
 
-Aşağıdaki parametreler belirlenir:
+Girdi Boyutu (Input Size):
 
-Girdi boyutu
+Graf algoritmaları için: Düğüm (Vertex) sayısı.
 
-Graf algoritmaları için: düğüm (vertex) sayısı
+Knapsack için: Eşya (Item) sayısı.
 
-Knapsack için: eşya sayısı
+Kenar Yoğunluğu: Graf tabanlı algoritmalar için "Sparse" (Seyrek) veya "Dense" (Yoğun) graf seçimi.
 
-Kenar yoğunluğu (yalnızca graf tabanlı algoritmalar için)
+Tekrar Sayısı: Sonuçların tutarlılığı için deneyin kaç kez tekrarlanacağı.
 
-Deney tekrar sayısı
+Çıktılar:
 
-İlgili algoritma çalıştırılır
+İşlem tamamlandığında grafikler (Zaman, Enerji, Bellek) anlık olarak ekrana çizilir.
 
-Üretilen grafikler incelenir:
-
-Zaman karmaşıklığı
-
-Enerji karmaşıklığı (teorik)
-
-Deneysel enerji tüketimi (CodeCarbon)
-
-Bellek kullanımı
-
-Tüm sonuçlar otomatik olarak:
-
-CSV dosyasına kaydedilir
-
-Deney tekrarları üzerinden ortalama alınır
-
-Grafikler ile görselleştirilir
-
-📊 Üretilen Çıktılar
-
-CSV Dosyası: results/csv/results.csv
-
-Grafikler: results/plots/
-
-Zaman – girdi boyutu
-
-Enerji karmaşıklığı – girdi boyutu
-
-Deneysel enerji (emisyon) – girdi boyutu
-
-Bellek kullanımı – girdi boyutu
-
-📌 Notlar
-
-Energy Impact Score, ana enerji metriği değildir; destekleyici bir karşılaştırma ölçütüdür
-
-CodeCarbon çıktıları, teorik enerji karmaşıklığını doğrudan temsil etmez, deneysel gözlem amacıyla kullanılmıştır
-
-Grafikler ve metrikler akademik olarak savunulabilir şekilde tasarlanmıştır
-
-Bu çalışma, ders projesi kapsamında hazırlanmış olup yayınlanabilirlik hedefi gözetilerek yapılandırılmıştır
+Ham veriler results/csv/results.csv dosyasına, grafikler results/plots/ dizinine otomatik kaydedilir.
 
 📜 Lisans
+Bu proje, akademik eğitim ve araştırma amaçlı hazırlanmıştır.
 
-Bu proje eğitim ve araştırma amaçlı hazırlanmıştır.
 
 ---
-
-
