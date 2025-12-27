@@ -233,16 +233,3 @@ Bu proje sonucunda hazırlanan **"Dinamik Programlama Algoritmalarında Zaman ve
 
 [📄 **Proje Raporunu Oku (PDF)**](https://github.com/Sevval-Demir/dynamicProgramming/blob/main/dinamik_programlama.pdf)
 
-## 👥 İletişim
-
-Sorularınız veya önerileriniz için:
-
-- **GitHub Issues:** [Proje Sayfası](https://github.com/Sevval-Demir/dynamicProgramming.git)
-- 
----
-
-## 🌟 Teşekkürler
-
-Bu projeyi kullandığınız için teşekkür ederiz! Yıldız ⭐ vermeyi unutmayın.
-
----
